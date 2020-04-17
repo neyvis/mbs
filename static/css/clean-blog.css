@@ -169,10 +169,11 @@ img::-moz-selection {
 }
 
 header.masthead {
+  background-image: url("../img/home-bg.jpg");
   margin-bottom: 50px;
   background: no-repeat center center;
   background-color: #868e96;
-  background-attachment: scroll;
+  background-attachment: scroll;s
   position: relative;
   background-size: cover;
 }

@@ -25,7 +25,7 @@ SECRET_KEY = 'i9trcn@jf-z1*1@wq6spgy3zyln1wwj^isq=5nm2+@5sggrfwt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['nremon.pythonanywhere.com']
+ALLOWED_HOSTS = ['nremon.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -129,3 +129,7 @@ STATIC_URL = '/static/'
 #--------------------------------------------------
 
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+]
