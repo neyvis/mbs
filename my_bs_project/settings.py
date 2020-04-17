@@ -25,7 +25,7 @@ SECRET_KEY = 'i9trcn@jf-z1*1@wq6spgy3zyln1wwj^isq=5nm2+@5sggrfwt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['nremon.pythonanywhere.com']
 
 
 # Application definition
