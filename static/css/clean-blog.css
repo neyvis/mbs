@@ -4,6 +4,7 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-clean-blog/blob/master/LICENSE)
  */
 
+
 body {
   font-size: 20px;
   color: #212529;
@@ -169,11 +170,9 @@ img::-moz-selection {
 }
 
 header.masthead {
-  background-image: url("../img/home-bg.jpg");
+  background-image: url("/static/img/home-bg.jpg");
   margin-bottom: 50px;
-  background: no-repeat center center;
-  background-color: #868e96;
-  background-attachment: scroll;s
+  background-attachment: scroll;
   position: relative;
   background-size: cover;
 }
