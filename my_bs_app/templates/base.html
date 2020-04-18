@@ -1,69 +1,176 @@
+
+
+{%  load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-    <head>
-        <title>Django Central</title>
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-        <meta name="google" content="notranslate" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-            crossorigin="anonymous" />
-    </head>
+<head>
 
-    <body>
-        <style>
-            body {
-            font-family: "Roboto", sans-serif;
-            font-size: 17px;
-            background-color: #fdfdfd;
-        }
-        .shadow {
-            box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
-        }
-        .btn-danger {
-            color: #fff;
-            background-color: #f00000;
-            border-color: #dc281e;
-        }
-        .masthead {
-            background: #3398E1;
-            height: auto;
-            padding-bottom: 15px;
-            box-shadow: 0 16px 48px #E3E7EB;
-            padding-top: 10px;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="A website to share photos and tips">
+  <meta name="author" content="Neyvis Remon">
 
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow" id="mainNav">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'home' %}">Django central</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">About</a>
-                        </li>
-                        <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">Policy</a>
-                        </li>
-                        <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        {% block content %}
-        <!-- Content Goes here -->
-        {% endblock content %}
-        <!-- Footer -->
-        <footer class="py-3 bg-grey">
-            <p class="m-0 text-dark text-center ">Copyright &copy; Django Central</p>
-        </footer>
-    </body>
+  <title>My Best Shot</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{%  static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="{%  static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="{%  static 'css/clean-blog.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">My Best Shot</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="post.html">Sample Post</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <!-- Main Content -->
+
+  {% block content %}
+  <style>
+      body {
+          font-family: "Roboto", sans-serif;
+          font-size: 18px;
+          background-color: #fdfdfd;
+      }
+
+      .head_text {
+          color: white;
+      }
+
+      .card {
+          box-shadow: 0 16px 48px #E3E7EB;
+      }
+  </style>
+
+  <!-- Page Header -->
+
+  <header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Let´s share our shots</h1>
+            <span class="subheading">A single way to connect your len with the world</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% for post in object_list %}
+        <div class="post-preview">
+          <a href="{% url 'post_detail' post.slug  %}" >
+            <h2 class="post-title">
+              {{ post.title }}
+            </h2>
+            <h3 class="post-subtitle">
+              {{post.content|slice:":200" }}
+            </h3>
+          </a>
+          <p class="post-meta">Posted by
+            <a href="#">{{ post.author }}</a>
+            on {{ post.created_on}}</p>
+        </div>
+        {% empty %}
+            <li>No articles yet.</li>
+        {% endfor %}
+        <hr>
+        <!-- Pager -->
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%endblock%}
+
+
+
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy; Your Website 2019</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{%  static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{%  static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{%  static 'js/clean-blog.js' %}"></script>
+
+</body>
+
 </html>
-

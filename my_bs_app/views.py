@@ -1,12 +1,24 @@
 from django.shortcuts import render
-from django.views import generic
+from django.views.generic import ListView, TemplateView
+from django.views.generic.detail import DetailView
+
 from .models import Post
 
 
-class PostList(generic.ListView):
-    queryset = Post.objects.filter(status=1).order_by('-created_on')
+class PostList(ListView):
+    #queryset = Post.objects.filter(status=1).order_by('-created_on')
+    queryset = Post.objects.all()
+    context_object_name = 'Post list'
     template_name = 'index.html'
 
-class PostDetail(generic.DetailView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class PostDetail(DetailView):
     model = Post
     template_name = 'post_detail.html'
+
+class AboutView(TemplateView):
+    template_name = "about.html"
