@@ -18,7 +18,7 @@ class PostList(ListView):
 
 class PostDetail(DetailView):
     model = Post
-    template_name = 'post_detail.html'
+    template_name = 'post.html'
 
 class AboutView(TemplateView):
     template_name = "about.html"
