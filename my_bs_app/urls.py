@@ -3,8 +3,9 @@
 """
 from django.urls import path
 
-from .views import home
+from .views import PostDetail, PostList
 
 urlpatterns = [
-    path("", home, name='home'),
+    path('', PostList.as_view(), name='home'),
+    path('<slug:slug>/', PostDetail.as_view(), name='post_detail'),
 ]
