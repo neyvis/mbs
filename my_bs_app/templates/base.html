@@ -47,27 +47,39 @@
             <a class="nav-link" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
+            <a class="nav-link" href="{% url 'logout' %}">About</a>
           </li>
-          <li class="nav-item">
+          {# Some logic on what to display for last item#}
+          {% if user.is_authenticated %}
+            <li class="nav-item"><span><i>Welcome {{ user.username }}</i></span></li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'create_post' %}">Create a post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'register' %}">Register</a>
           </li>
+          {% endif %}
+
         </ul>
       </div>
     </div>
   </nav>
+  {% include 'includes/messaging.html' %}
 
 
 
   <!-- Main Content -->
 
-  {% block content %}
+    {% block content %}
+    {% endblock %}
 
-
-  {%endblock%}
 
 
 

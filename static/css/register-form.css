@@ -1,3 +1,16 @@
+
 #register-form{
-    margin-top:100px;
+    margin: 120px auto;
+}
+
+#register-form .container #login-row #login-column #login-box {
+  max-width: 600px;
+  height: 320px;
+  border: 1px solid #9C9C9C;
+}
+#register-form .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#register-form .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
 }

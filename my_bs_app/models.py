@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 
 STATUS = (
@@ -13,7 +14,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    image = models.ImageField()
+    image = models.ImageField(upload_to='images')
     content = models.TextField(help_text="Enter your text here.")
     status = models.IntegerField(choices=STATUS, default=0)
 
@@ -22,3 +23,14 @@ class Post(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return ('post_detail', (),
+                {
+                    'slug': self.slug,
+                })
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Post, self).save(*args, **kwargs)
