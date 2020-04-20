@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{%  load static %}
+
+{% block content %}
+
+<form id="register-form" class="form" enctype='multipart/form-data' method="post">
+    {% csrf_token %}
+    {{ form }}
+    <div class="form-group">
+        <button type="submit" name="submit" style="background-color:#0085A1; color:white" class="btn btn-outline-info btn-info btn-md" type="submit">Create post</button>
+    </div>
+</form>
+
+{{ form.errors }}
+{{ form.non_field_errors }}
+
+{% endblock %}
