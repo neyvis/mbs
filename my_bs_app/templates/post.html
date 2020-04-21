@@ -10,7 +10,7 @@
           <div class="post-heading">
             <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
             <span class="meta">{{ post.author }}
-              <a href="#">Start Bootstrap</a>
+              <a href="{% url 'home' %}">My Best Shot</a>
               on {{ post.created_on }}</span>
           </div>
         </div>

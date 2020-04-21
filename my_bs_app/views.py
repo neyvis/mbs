@@ -1,16 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import DetailView
-
+from django.urls import reverse
 from django.template.defaultfilters import slugify
-
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 
 import datetime
-
-from django.http import HttpResponse
 
 from .models import Post
 
@@ -100,7 +97,8 @@ def create_post(request):
             created_on = datetime.datetime.now()
             updated_on = datetime.datetime.now()
             post = form.save(commit=False)
-            post.slug = slugify(post.title)
+            slug = slugify(post.title)
+            post.slug = slug
             post.status = status
             post.created_on = created_on
             post.updated_on = updated_on
@@ -108,7 +106,7 @@ def create_post(request):
             post.save()
             # I want to redirect to the post detail page.
             #return redirect(post)
-            return redirect(post)
+            return redirect(reverse('post_detail', kwargs={'slug': slug}))
     else:
         print('Hola')
         form = PostForm()
