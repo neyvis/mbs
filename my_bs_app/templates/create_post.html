@@ -4,11 +4,11 @@
 
 {% block content %}
 
-<div id="login">
+<div id="create-post-container">
     <div class="container">
-        <div id="login-row" class="row justify-content-center align-items-center">
-            <div id="login-column" class="col-md-6">
-                <div id="login-box" class="col-md-12">
+        <div id="create-post-row" class="row justify-content-center align-items-center">
+            <div id="create-post-column" class="col-md-6">
+                <div id="create-post-box" class="col-md-12">
                     <form id="create-post" class="form" enctype='multipart/form-data' method="POST">
                         {% csrf_token %}
                         <h3 class="text-center text-info">Create Post</h3>
@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group">
                             <label for="id_content" class="text-info">Content:</label><br>
-                            <input type="password" name="content" id="id_content" cols="40" rows="10" class="form-control" required>
+                            <textarea type="password" name="content" id="id_content" cols="40" rows="10" class="form-control" required></textarea>
                             <span class="helptext">Enter your text here.</span>
                         </div>
                         <div class="form-group">

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load threadedcomments_tags %}
+{% load comments %}
 
 {% block content %}
 
@@ -34,17 +34,43 @@
 
 {% block comments%}
 
-<div id="login">
+<div id="comments">
     <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
-            <div id="login-column" class="col-md-6">
-                <div id="login-box" class="col-md-12">
-                {% if user.is_authenticated %}
-                  {% render_comment_list for object %}
-                  {% render_comment_form for object %}
-                {% else %}
-                    <p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a comment.</p>
-                {% endif %}
+            <div id="comments-column" class="col-md-8">
+                <div id="comments-box" class="col-md-12">
+                    {% get_comment_count for object as comment_count %}
+                    {% if comment_count %}
+                        <span>The post <b>{{ object.title }}</b>  has {{ comment_count }} comments.</span> <br>                        {% render_comment_list for object %}
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                      {% get_comment_form for object as form %}
+                      <form action="{% comment_form_target %}" method="post">
+                        {% csrf_token %}
+                          <input type="hidden" name="next" value="{% url 'post_detail' post.slug  %}">
+                        {% for field in form %}
+                        {% ifequal field.name "name" %}
+                            <input id="id_name" type="hidden" name="name" value="{{ user.username }}">
+                        {% else %}{% ifequal field.name "email" %}
+                            <input type="hidden" name="email" value="{{ user.email }}" id="id_email">
+                          {% else %}
+                          {% ifequal field.name "url" %}
+                        {% else %}
+                          {% ifequal field.name "honeypot" %}
+                        {% else %}{{ field }}{% endifequal %}{% endifequal %}{% endifequal %}{% endifequal %}
+
+
+                        {% endfor %}
+                          <div class="col-md-12">
+                              <input style="background-color:#0085A1; color:white" class="btn btn-outline-info btn-info btn-md" type="submit" name="post" value="Post">
+                          </div>
+                      </form>
+
+
+                    {% else %}
+                      <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

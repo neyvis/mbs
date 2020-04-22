@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_comments',
+
     'my_bs_app',
 ]
 
@@ -138,11 +140,8 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = 'home'
 
 INSTALLED_APPS += (
-    'threadedcomments',
-    'django_comments',
     'django.contrib.sites',
 )
 
-COMMENTS_APP = 'threadedcomments'
 
 SITE_ID = 1
