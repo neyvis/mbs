@@ -1,32 +1,55 @@
 {% extends "base.html" %}
+
+{% load threadedcomments_tags %}
+
 {% block content %}
 
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: {{ post.image }}">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="post-heading">
-            <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
-            <span class="meta">{{ post.author }}
-              <a href="{% url 'home' %}">My Best Shot</a>
-              on {{ post.created_on }}</span>
-          </div>
+<!-- Page Header -->
+<header class="masthead" style="background-image: {{ post.image }}">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-heading">
+          <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
+          <span class="meta">{{ post.author }}
+            <a href="{% url 'home' %}">My Best Shot</a>
+            on {{ post.created_on }}</span>
         </div>
       </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- Post Content -->
-  <article>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <p>{{ object.content | safe }}</p>
-        </div>
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <p>{{ object.content | safe }}</p>
       </div>
     </div>
-  </article>
+  </div>
+</article>
+
+{% block comments%}
+
+<div id="login">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                {% if user.is_authenticated %}
+                  {% render_comment_list for object %}
+                  {% render_comment_form for object %}
+                {% else %}
+                    <p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a comment.</p>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
 
 {% endblock %}

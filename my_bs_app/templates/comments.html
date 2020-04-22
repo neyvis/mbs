@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{%  load static %}
+
+{% block content %}
+
+<div id="comments">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <form id="comment-form" class="form" action="/%5Earticles/comments/post/" method="post">
+                        {% csrf_token %}
+                        <div><input type="hidden" name="content_type" value="my_bs_app.post" id="id_content_type"></div>
+                        <div><input type="hidden" name="object_pk" value="1" id="id_object_pk"></div>
+                        <div><input type="hidden" name="timestamp" value="1587495641" id="id_timestamp"></div>
+                        <div><input type="hidden" name="security_hash" value="d6598caf26f946c210e8f63788ca0477e0774b71" id="id_security_hash"></div>
+
+
+
+                        <h3 class="text-center text-info">Comment</h3>
+                        <div class="form-group">
+                            <label for="id_name" class="text-info">Name:</label><br>
+                            <input type="text" name="name" id="id_name" class="form-control" maxlength="50"autofocus required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_email" class="text-info">Email address:</label><br>
+                            <input type="email" name="email" id="id_email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_title" class="text-info">Title:</label><br>
+                            <input type="text" name="title" id="id_title" class="form-control" maxlength="255" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_comment" class="text-info">Comment:</label><br>
+                            <textarea name="comment" id="id_comment" cols="40" rows="10" maxlength="3000" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <p style="display:none;">
+                                <label for="id_honeypot">If you enter anything in this field your comment will be treated as spam:</label>
+                                <input type="text" name="honeypot" id="id_honeypot">
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="parent" id="id_parent">
+                        </div>
+
+                        <div class="form-group">
+                            <button style="background-color:#0085A1; color:white" class="btn btn-outline-info btn-info btn-md" name="post" class="submit-post" type="submit">Submit</button>
+                            <button style="background-color:#0085A1; color:white" class="btn btn-outline-info btn-info btn-md" name="preview" class="submit-preview" type="submit">Preview</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

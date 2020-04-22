@@ -21,4 +21,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('my_bs_app.urls')),
+    path(r'^articles/comments/', include('django_comments.urls')),
 ]
