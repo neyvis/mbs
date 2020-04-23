@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_comments',
+    'django_summernote',
 
     'my_bs_app',
 ]
@@ -131,7 +132,13 @@ STATIC_URL = '/static/'
 #--------------------------------------------------
 
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 LOGIN_REDIRECT_URL = 'home'
@@ -140,5 +147,37 @@ INSTALLED_APPS += (
     'django.contrib.sites',
 )
 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 SITE_ID = 1
+
+SUMMERNOTE_THEME = 'bs4'  # Show summernote with Bootstrap4
+
+SUMMERNOTE_CONFIG = {
+    # Using SummernoteWidget - iframe mode, default
+    'iframe': True,
+
+    # You can put custom Summernote settings
+    'summernote': {
+        # As an example, using Summernote Air-mode
+        'airMode': False,
+
+        # Change editor size
+        'width': '100%',
+        'height': '480',
+
+        # Use proper language setting automatically (default)
+        'lang': None,
+    },
+
+    # Need authentication while uploading attachments.
+    'attachment_require_authentication': True,
+
+    # You can disable attachment feature.
+    'disable_attachment': False,
+
+    # Lazy initialize
+    # If you want to initialize summernote at the bottom of page, set this as True
+    # and call `initSummernote()` on your page.
+    'lazy': True,
+}

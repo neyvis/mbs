@@ -3,6 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
+from django_summernote.fields import SummernoteTextFormField, SummernoteTextField
+from django_summernote.widgets import SummernoteWidget
+
 from .models import Post
 
 class NewUserForm(UserCreationForm):
@@ -23,4 +26,8 @@ class PostForm(ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title', 'image', 'content']
+        fields = ("title", "image", "content")
+        widgets = {
+            'content': SummernoteWidget(),
+        }
+

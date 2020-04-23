@@ -74,7 +74,8 @@
   </nav>
   {% include 'includes/messaging.html' %}
 
-
+    {% block header %}
+    {% endblock %}
 
   <!-- Main Content -->
 
@@ -82,10 +83,8 @@
     {% endblock %}
 
 
-
-
-
-  <!-- Footer -->
+ <!-- Footer -->
+  {% block footer %}
   <footer>
     <div class="container">
       <div class="row">
@@ -121,6 +120,9 @@
       </div>
     </div>
   </footer>
+  {% endblock %}
+
+
 
   <!-- Bootstrap core JavaScript -->
   <script src="{%  static 'vendor/jquery/jquery.min.js' %}"></script>

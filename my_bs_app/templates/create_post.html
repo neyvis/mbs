@@ -4,6 +4,7 @@
 
 {% block content %}
 
+
 <div id="create-post-container">
     <div class="container">
         <div id="create-post-row" class="row justify-content-center align-items-center">
@@ -21,8 +22,30 @@
                             <input type="file" name="image" accept="image/*" id="id_image" class="" required>
                         </div>
                         <div class="form-group">
-                            <label for="id_content" class="text-info">Content:</label><br>
-                            <textarea type="password" name="content" id="id_content" cols="40" rows="10" class="form-control" required></textarea>
+
+                            <label for="id_content">Content:</label><br>
+                            <textarea name="content" rows="10" cols="40" id="id_content" hidden="true">
+                            </textarea>
+
+                            <script>
+                            var settings_id_content = {"height": "480", "lang": "en-US", "airMode": false, "toolbar": [["style", ["style"]], ["font", ["bold", "italic", "underline", "superscript", "subscript", "strikethrough", "clear"]], ["fontname", ["fontname"]], ["fontsize", ["fontsize"]], ["color", ["color"]], ["para", ["ul", "ol", "paragraph"]], ["height", ["height"]], ["table", ["table"]], ["insert", ["link", "picture", "video", "hr"]], ["view", ["fullscreen", "codeview"]], ["help", ["help"]]], "url": {"upload_attachment": "/summernote/upload_attachment/", "language": "/static/summernote/lang/summernote-en-US.min.js"}, "width": "100%"};
+                            </script>
+
+                            <style>
+                            iframe.note-fullscreen {
+                              position: fixed;
+                              top: 0;
+                              left: 0;
+                              width: 100vw!important;
+                              height: 100vh!important;
+                              z-index: 4000;
+                            }
+                            </style>
+
+                            <div class="summernote-div"  cols="40" rows="10" width="100%" height="480">
+                              <iframe id="id_content_iframe" src="/summernote/editor/id_content/" frameborder="0" width="100%" height="480"></iframe>
+                            </div>
+
                             <span class="helptext">Enter your text here.</span>
                         </div>
                         <div class="form-group">

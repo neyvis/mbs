@@ -92,7 +92,6 @@ def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            print(request.POST['title'])
             status = 0
             created_on = datetime.datetime.now()
             updated_on = datetime.datetime.now()
@@ -104,10 +103,8 @@ def create_post(request):
             post.updated_on = updated_on
             post.author = request.user
             post.save()
-            # I want to redirect to the post detail page.
-            #return redirect(post)
+            # redirect to the post detail page.
             return redirect(reverse('post_detail', kwargs={'slug': slug}))
     else:
-        print('Hola')
         form = PostForm()
     return render(request, 'create_post.html', {'form': form})

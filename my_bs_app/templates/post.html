@@ -2,10 +2,19 @@
 
 {% load comments %}
 
-{% block content %}
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: {{ post.image }}">
+{% block header %}
+<style>
+#post-masthead
+{
+background-image:url('{{ post.image.url }}');
+background-repeat:no-repeat;
+background-size:100%;
+}
+</style>
+
+<header id="post-masthead" class="masthead">
   <div class="overlay"></div>
   <div class="container">
     <div class="row">
@@ -20,7 +29,9 @@
     </div>
   </div>
 </header>
+{% endblock %}
 
+{% block content %}
 <!-- Post Content -->
 <article>
   <div class="container">
@@ -32,7 +43,6 @@
   </div>
 </article>
 
-{% block comments%}
 
 <div id="comments">
     <div class="container">
@@ -45,6 +55,7 @@
                     {% endif %}
 
                     {% if user.is_authenticated %}
+                      <p>Leave a comment as: {{ user.username }}</p>
                       {% get_comment_form for object as form %}
                       <form action="{% comment_form_target %}" method="post">
                         {% csrf_token %}
@@ -76,6 +87,6 @@
         </div>
     </div>
 </div>
-{% endblock %}
+
 
 {% endblock %}
