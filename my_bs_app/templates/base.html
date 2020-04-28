@@ -48,7 +48,7 @@
             <a class="nav-link" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">About</a>
+            <a class="nav-link" href="{% url 'about' %}">About</a>
           </li>
           {# Some logic on what to display for last item#}
           {% if user.is_authenticated %}
@@ -58,6 +58,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'my_posts' %}">My posts</a>
             </li>
           {% else %}
             <li class="nav-item">
@@ -115,7 +118,7 @@
               </a>
             </li>
           </ul>
-          <p class="copyright text-muted">Copyright &copy; Your Website 2019</p>
+          <p class="copyright text-muted">Copyright &copy; My Best Shot 2020</p>
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@ class PostList(ListView):
     #queryset = Post.objects.all()
     context_object_name = 'Post list'
     template_name = 'index.html'
-    paginate_by = 100
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -108,3 +108,19 @@ def create_post(request):
     else:
         form = PostForm()
     return render(request, 'create_post.html', {'form': form})
+
+
+def my_posts(request):
+    user = request.user
+    posts_list = Post.objects.filter(author_id=user).order_by('-created_on')
+
+    return render(request = request,
+                  template_name = "my_posts.html",
+                  context={"posts_list":posts_list})
+
+def about(request):
+    return render(request=request,
+                  template_name="about.html",
+                  )
+
+

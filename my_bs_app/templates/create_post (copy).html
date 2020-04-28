@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{%  load static %}
+
+{% block content %}
+
+<div id="create-post-container">
+    <div class="container">
+        <div id="create-post-row" class="row justify-content-center align-items-center">
+            <div id="create-post-column" class="col-md-6">
+                <div id="create-post-box" class="col-md-12">
+                    <form id="create-post" class="form" enctype='multipart/form-data' method="POST">
+                        {% csrf_token %}
+                        <h3 class="text-center text-info">Create Post</h3>
+                        <div class="form-group">
+                            <label for="id_title" class="text-info">Title:</label><br>
+                            <input type="text" name="title" maxlength="150" class="form-control" required autofocus id="id_title">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_image" class="text-info">Image:</label><br>
+                            <input type="file" name="image" accept="image/*" id="id_image" class="" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_content" class="text-info">Content:</label><br>
+
+                            <textarea type="text" name="content" id="id_content" cols="40" rows="10" class="form-control" required>
+                                 {{ object.content | safe }}
+                            </textarea>
+                            <span class="helptext">Enter your text here.</span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="submit" style="background-color:#0085A1; color:white" class="btn btn-outline-info btn-info btn-md" type="submit">Create post</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ form.errors }}
+{{ form.non_field_errors }}
+
+{% endblock %}
+
+

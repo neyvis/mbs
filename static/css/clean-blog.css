@@ -173,6 +173,13 @@ header.masthead {
 }
 
 
+#about-header{
+  background-image: url("/static/img/japanese-cherry-trees-324175_1920.jpg");
+  margin-bottom: 50px;
+  background-attachment: scroll;
+  position: relative;
+  background-size: cover;
+}
 
 header.masthead .overlay {
   position: absolute;
@@ -405,4 +412,8 @@ footer .copyright {
 .btn-lg {
   font-size: 16px;
   padding: 25px 35px;
+}
+
+.my_posts_list{
+    margin: 120px auto;
 }
