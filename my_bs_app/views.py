@@ -7,6 +7,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 import datetime
 
 from .models import Post
@@ -16,10 +18,9 @@ from .forms import NewUserForm, PostForm
 
 class PostList(ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
-    #queryset = Post.objects.all()
     context_object_name = 'Post list'
     template_name = 'index.html'
-    paginate_by = 10
+    paginate_by = 4
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -112,7 +113,18 @@ def create_post(request):
 
 def my_posts(request):
     user = request.user
-    posts_list = Post.objects.filter(author_id=user).order_by('-created_on')
+    posts = Post.objects.filter(author_id=user).order_by('-created_on')
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 4)
+    try:
+        posts_list = paginator.page(page)
+    except PageNotAnInteger:
+        posts_list = paginator.page(1)
+    except EmptyPage:
+        posts_list = paginator.page(paginator.num_pages)
+
+    #return render(request, 'core/user_list.html', {'users': users})
 
     return render(request = request,
                   template_name = "my_posts.html",

@@ -8,6 +8,11 @@
   <div class="container my_posts_list">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
+        {% if posts_list %}
+            You have {{ posts_list|length }}
+            posts.
+        {% endif %}
+
         {% for post in posts_list %}
         <div class="post-preview">
           <a href="{% url 'post_detail' post.slug  %}" >
@@ -15,7 +20,7 @@
               {{ post.title }}
             </h2>
             <h3 class="post-subtitle">
-              {{post.content|slice:":200" }}
+              {{post.content|slice:":200"|safe }}
             </h3>
           </a>
           <p class="post-meta">Posted
@@ -26,14 +31,38 @@
               {% else %}
                 Draft
               {% endifequal %}
-
-
           </p>
         </div>
         {% empty %}
             <li>No articles yet.</li>
         {% endfor %}
         <hr>
+
+
+        <!-- Pager -->
+
+        {% if posts_list.has_other_pages %}
+          <ul class="pagination">
+            {% if posts_list.has_previous %}
+              <li><a href="?page={{ posts_list.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+              <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in posts_list.paginator.page_range %}
+              {% if posts_list.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+              {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if posts_list.has_next %}
+              <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+            {% else %}
+              <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+          </ul>
+        {% endif %}
+
       </div>
     </div>
   </div>

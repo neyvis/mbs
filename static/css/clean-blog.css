@@ -174,7 +174,7 @@ header.masthead {
 
 
 #about-header{
-  background-image: url("/static/img/japanese-cherry-trees-324175_1920.jpg");
+  background-image: url("/static/img/japanese-cherry-trees.jpg");
   margin-bottom: 50px;
   background-attachment: scroll;
   position: relative;
@@ -416,4 +416,9 @@ footer .copyright {
 
 .my_posts_list{
     margin: 120px auto;
+}
+
+.pagination li{
+    border: 1px solid gray;
+    padding: 10px;
 }
