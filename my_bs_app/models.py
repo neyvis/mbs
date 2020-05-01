@@ -2,11 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
+from . import constants
 
-STATUS = (
-    (0,"Draft"),
-    (1,"Publish")
-)
 
 class Post(models.Model):
     title = models.CharField(max_length=50)
@@ -16,19 +13,13 @@ class Post(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to='images')
     content = models.TextField(help_text="Enter your text here.")
-    status = models.IntegerField(choices=STATUS, default=0)
+    status = models.IntegerField(choices=constants.STATUSES, default=constants.STATUS_DRAFT)
 
     class Meta:
         ordering = ['-created_on']
 
     def __unicode__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return ('post_detail', (),
-                {
-                    'slug': self.slug,
-                })
+        return self.title
 
     def save(self, *args, **kwargs):
         if not self.slug:

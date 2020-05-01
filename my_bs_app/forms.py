@@ -2,11 +2,11 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-
-from django_summernote.fields import SummernoteTextFormField, SummernoteTextField
 from django_summernote.widgets import SummernoteWidget
 
 from .models import Post
+from . import constants
+
 
 class NewUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -22,6 +22,7 @@ class NewUserForm(UserCreationForm):
             user.save()
         return user
 
+
 class PostForm(ModelForm):
 
     class Meta:
@@ -31,3 +32,8 @@ class PostForm(ModelForm):
             'content': SummernoteWidget(),
         }
 
+    def save(self, commit=True):
+        post = super(PostForm, self).save(commit=False)
+        post.status = constants.STATUS_DRAFT
+
+        return post

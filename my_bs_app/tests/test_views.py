@@ -1,5 +1,3 @@
-import base64
-
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -46,20 +44,13 @@ class TestPostView(TestCase):
     def test_create_ok(self):
         img = create_image()
         img_file = SimpleUploadedFile('front.png', img.getvalue())
-        headers = {
-            'HTTP_AUTHORIZATION': 'Basic ' + base64.b64encode(
-                bytes('{}:{}'.format(self.user.username, self.user.password), 'utf8')
-            ).decode('utf8'),
-        }
-        print(headers)
+
         client = Client()
         client.login(username=self.user.username, password='123')
         response = client.post(
             reverse('create_post'),
             data={'title': 'Post 1', 'content': 'Post 1 content', 'image': img_file},
-            # **headers
         )
-        print(response.content)
 
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Post.objects.filter(title='Post 1'))

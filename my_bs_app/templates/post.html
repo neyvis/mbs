@@ -5,12 +5,12 @@
 
 <!-- Page Header -->
 {% block header %}
+<!--I know it should be on a separated css file but let's take the shortcut due to the image reference and Django...-->
 <style>
 #post-masthead
 {
 background-image:url('{{ post.image.url }}');
 background-repeat:no-repeat;
-background-size:100%;
 }
 </style>
 

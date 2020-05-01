@@ -1,18 +1,13 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.urls import reverse
-from django.template.defaultfilters import slugify
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-import datetime
-
 from .models import Post
-
 from .forms import NewUserForm, PostForm
 
 
@@ -48,44 +43,40 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, "You are now logged in as {username}")
-                print("You are now logged in as {username}")
                 return redirect("home")
             else:
                 messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
-    return render(request = request,
-                    template_name = "login.html",
-                    context={"form":form})
+
+    return render(
+        request=request,
+        template_name="login.html",
+        context={"form": form}
+    )
 
 
 def register_request(request):
     if request.method == "POST":
         form = NewUserForm(request.POST)
         if form.is_valid():
-
             user = form.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-
-            #username = form.cleaned_data.get('username')
-            #raw_password = form.cleaned_data.get('password')
-            #user = authenticate(username=username, password=raw_password)
-            #login(request, user)
             return redirect("home")
-
         else:
-            for msg in form.error_messages:
-                print(form.error_messages[msg])
-
-            return render(request = request,
-                          template_name = "register.html",
-                          context={"form":form})
+            return render(
+                request=request,
+                template_name="register.html",
+                context={"form": form}
+            )
 
     form = NewUserForm
-    return render(request = request,
-                  template_name = "register.html",
-                  context={"form":form})
+    return render(
+        request=request,
+        template_name="register.html",
+        context={"form": form}
+    )
 
 
 def create_post(request):
@@ -93,19 +84,11 @@ def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            status = 0
-            created_on = datetime.datetime.now()
-            updated_on = datetime.datetime.now()
-            post = form.save(commit=False)
-            slug = slugify(post.title)
-            post.slug = slug
-            post.status = status
-            post.created_on = created_on
-            post.updated_on = updated_on
+            post = form.save(commit=True)
             post.author = request.user
             post.save()
             # redirect to the post detail page.
-            return redirect(reverse('post_detail', kwargs={'slug': slug}))
+            return redirect(reverse('post_detail', kwargs={'slug': post.slug}))
     else:
         form = PostForm()
     return render(request, 'create_post.html', {'form': form})
@@ -124,15 +107,15 @@ def my_posts(request):
     except EmptyPage:
         posts_list = paginator.page(paginator.num_pages)
 
-    #return render(request, 'core/user_list.html', {'users': users})
+    return render(
+        request=request,
+        template_name="my_posts.html",
+        context={"posts_list": posts_list}
+    )
 
-    return render(request = request,
-                  template_name = "my_posts.html",
-                  context={"posts_list":posts_list})
 
 def about(request):
-    return render(request=request,
-                  template_name="about.html",
-                  )
-
-
+    return render(
+        request=request,
+        template_name="about.html",
+    )
